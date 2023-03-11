@@ -1,0 +1,65 @@
+Function 1:
+create or replace function TotalRecord return number 
+  is total number(3):=0;
+  begin
+  select count(*) into total from Student;
+  return total;
+  End;
+  /
+
+set serveroutput on;
+declare a number(5);
+	begin
+	a:=TotalRecord();
+	DBMS_OUTPUT.PUT_LINE('Total number of Student: '||a);
+	end;
+	/
+
+
+Function 2:
+create or replace function DisName(regnom varchar)
+    return varchar is name
+    student%rowtype;
+    begin
+    select * into name from student where regno=regnom;
+    return name.stud_name;
+    end;
+    /
+
+set serveroutput on;
+declare a varchar(30);
+   begin
+   a:=DisName('20C001');
+   dbms_output.put_line('Student name is :'||a);
+   end;
+   /
+
+Procedure 1:
+create procedure "INSERTUSER" (Regno IN VARCHAR, Stud_name IN VARCHAR, Dept IN VARCHAR) is begin insert into Student values(Regno, Stud_name, Dept);
+    end;
+    /
+
+BEGIN 
+	INSERTUSER('20C001','Abi','CSE');
+	DBMS_OUTPUT.PUT_LINE('Student enrolled successfully');
+END; 
+/
+
+Procedure 2:
+create or replace procedure "UPDATER"
+    (regnom IN varchar, name IN varchar)
+    is
+    begin
+    update student set stud_name=name where regno=regnom;
+    end;
+    /
+
+BEGIN 
+	UPDATER('20C001','Ramu')
+	DBMS_OUTPUT.PUT_LINE('Student updated Successfully');
+END;
+/
+
+
+
+
